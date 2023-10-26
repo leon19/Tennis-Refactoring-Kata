@@ -70,19 +70,13 @@ export class TennisGame1 implements TennisGame {
   private findTieScore(score: string) {
     switch (this.playerOneScore) {
       case 0:
-        score = 'Love-All';
-        break;
+        return 'Love-All';
       case 1:
-        score = 'Fifteen-All';
-        break;
+        return 'Fifteen-All';
       case 2:
-        score = 'Thirty-All';
-        break;
+        return 'Thirty-All';
       default:
-        score = 'Deuce';
-        break;
-
+        return 'Deuce';
     }
-    return score;
   }
 }

@@ -21,8 +21,6 @@ export class TennisGame1 implements TennisGame {
   }
 
   getScore(): string {
-    let score: string = '';
-    let tempScore: number = 0;
     if (this.playerOneScore === this.playerTwoScore) {
       return this.findTieScore();
     }
@@ -31,12 +29,14 @@ export class TennisGame1 implements TennisGame {
       return this.findWonScore();
     }
 
-    ({ tempScore, score } = this.findOngoingScore(tempScore, score));
-
-      return score
+    return this.findOngoingScore();
   }
 
-  private findOngoingScore(tempScore: number, score: string) {
+  private findOngoingScore() {
+    let score = '';
+    let tempScore = 0;
+
+
     for (let i = 1; i < 3; i++) {
       if (i === 1) tempScore = this.playerOneScore;
       else { score += '-'; tempScore = this.playerTwoScore; }
@@ -55,7 +55,7 @@ export class TennisGame1 implements TennisGame {
           break;
       }
     }
-    return { tempScore, score };
+    return score;
   }
 
   private findWonScore() {

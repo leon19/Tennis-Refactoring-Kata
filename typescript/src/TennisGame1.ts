@@ -1,19 +1,40 @@
 import { TennisGame } from './TennisGame.js';
 
 
-class Player {
-  constructor(readonly name:string, private  score = 0) {}
+class Score {
+  constructor(private score = 0) {}
 
-  hasName(name: string): boolean {
-    return this.name === name;
-  }
-
-  incrementScore(): void {
+  increment(): void {
     this.score += 1;
   }
 
-  getScore(): number {
+  equals(score: Score): boolean {
+    return this.score === score.score;
+  }
+
+  valueOf(): number {
     return this.score;
+  }
+
+  toString(): string {
+    return scoreMap[this.score] as string;
+  }
+}
+
+
+const scoreMap: Record<number, string> = {
+  0: 'Love',
+  1: 'Fifteen',
+  2: 'Thirty',
+  3: 'Forty'
+};
+
+
+class Player {
+  constructor(readonly name:string, readonly score = new Score()) {}
+
+  hasName(name: string): boolean {
+    return this.name === name;
   }
 }
 
@@ -22,18 +43,17 @@ export class TennisGame1 implements TennisGame {
   private readonly playerOne: Player;
   private readonly playerTwo: Player;
 
-
-
   constructor(playerOneName: string, playerTwoName: string) {
     this.playerOne = new Player(playerOneName);
     this.playerTwo = new Player(playerTwoName);
+
   }
 
   wonPoint(playerName: string): void {
     if (this.playerOne.hasName(playerName)) {
-      this.playerOne.incrementScore();
+      this.playerOne.score.increment();
     } else {
-      this.playerTwo.incrementScore();
+      this.playerTwo.score.increment();
     }
   }
 
@@ -50,45 +70,23 @@ export class TennisGame1 implements TennisGame {
   }
 
   private hasPlayerTwoWon(): boolean {
-    return this.playerTwo.getScore() >= 4;
+    return this.playerTwo.score.valueOf() >= 4;
   }
 
   private hasPlayerOneWon(): boolean{
-    return this.playerOne.getScore() >= 4;
+    return this.playerOne.score.valueOf() >= 4;
   }
 
   private arePlyersTied() {
-    return this.playerOne.getScore() === this.playerTwo.getScore();
+    return this.playerOne.score.equals(this.playerTwo.score);
   }
 
   private findOngoingScore() {
-    let score = '';
-    let tempScore: number = 0;
-
-
-    for (let i = 1; i < 3; i++) {
-      if (i === 1) tempScore = this.playerOne.getScore();
-      else { score += '-'; tempScore = this.playerTwo.getScore(); }
-      switch (tempScore) {
-        case 0:
-          score += 'Love';
-          break;
-        case 1:
-          score += 'Fifteen';
-          break;
-        case 2:
-          score += 'Thirty';
-          break;
-        case 3:
-          score += 'Forty';
-          break;
-      }
-    }
-    return score;
+    return `${this.playerOne.score}-${this.playerTwo.score}`;
   }
 
   private findWonScore() {
-    const minusResult = this.playerOne.getScore() - this.playerTwo.getScore();
+    const minusResult = this.playerOne.score.valueOf() - this.playerTwo.score.valueOf();
 
     if (minusResult === 1) {
       return 'Advantage player1';
@@ -106,7 +104,7 @@ export class TennisGame1 implements TennisGame {
   }
 
   private findTieScore(): string{
-    switch (this.playerOne.getScore()) {
+    switch (this.playerOne.score.valueOf()) {
       case 0:
         return 'Love-All';
       case 1:
@@ -118,3 +116,4 @@ export class TennisGame1 implements TennisGame {
     }
   }
 }
+

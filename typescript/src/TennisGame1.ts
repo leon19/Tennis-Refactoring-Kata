@@ -28,7 +28,7 @@ export class TennisGame1 implements TennisGame {
     }
 
      if (this.playerOneScore >= 4 || this.playerTwoScore >= 4) {
-      return this.findWonScore(score);
+      return this.findWonScore();
     }
 
     ({ tempScore, score } = this.findOngoingScore(tempScore, score));
@@ -58,8 +58,9 @@ export class TennisGame1 implements TennisGame {
     return { tempScore, score };
   }
 
-  private findWonScore(score: string) {
-    const minusResult: number = this.playerOneScore - this.playerTwoScore;
+  private findWonScore() {
+    const minusResult = this.playerOneScore - this.playerTwoScore;
+
     if (minusResult === 1) {
       return 'Advantage player1';
     }

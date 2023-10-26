@@ -14,10 +14,19 @@ export class TennisGame1 implements TennisGame {
   }
 
   wonPoint(playerName: string): void {
-    if (playerName === 'player1')
-      this.playerOneScore += 1;
-    else
-      this.playerTwoScore += 1;
+    if (playerName === 'player1') {
+      this.incrementPlayerOneScore();
+    } else {
+      this.incrementPlayerTwoScore();
+    }
+  }
+
+  private incrementPlayerTwoScore() {
+    this.playerTwoScore += 1;
+  }
+
+  private incrementPlayerOneScore() {
+    this.playerOneScore += 1;
   }
 
   getScore(): string {

@@ -21,20 +21,32 @@ export class TennisGame1 implements TennisGame {
   }
 
   getScore(): string {
-    if (this.playerOneScore === this.playerTwoScore) {
+    if (this.arePlyersTied()) {
       return this.findTieScore();
     }
 
-     if (this.playerOneScore >= 4 || this.playerTwoScore >= 4) {
+     if (this.hasPlayerOneWon() || this.hasPlayerTwoWon()) {
       return this.findWonScore();
     }
 
     return this.findOngoingScore();
   }
 
+  private hasPlayerTwoWon(): boolean {
+    return this.playerTwoScore >= 4;
+  }
+
+  private hasPlayerOneWon(): boolean{
+    return this.playerOneScore >= 4;
+  }
+
+  private arePlyersTied() {
+    return this.playerOneScore === this.playerTwoScore;
+  }
+
   private findOngoingScore() {
     let score = '';
-    let tempScore = 0;
+    let tempScore: number = 0;
 
 
     for (let i = 1; i < 3; i++) {

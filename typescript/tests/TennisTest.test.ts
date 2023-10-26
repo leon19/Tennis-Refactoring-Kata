@@ -1,6 +1,8 @@
-import { TennisGame1, TennisGame2, TennisGame3 } from '../src';
-import { checkAllScores } from './utils';
-
+import { describe, it } from 'mocha';
+import { TennisGame1 } from '../src/TennisGame1.js';
+import { TennisGame2 } from '../src/TennisGame2.js';
+import { TennisGame3 } from '../src/TennisGame3.js';
+import { checkAllScores } from './utils.js';
 
 describe('TennisGame', function () {
   describe('TennisGame1', function () {

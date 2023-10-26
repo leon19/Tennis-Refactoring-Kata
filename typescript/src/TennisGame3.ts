@@ -1,4 +1,4 @@
-import { TennisGame } from './TennisGame';
+import { TennisGame } from './TennisGame.js';
 
 
 export class TennisGame3 implements TennisGame {
@@ -16,7 +16,7 @@ export class TennisGame3 implements TennisGame {
     let s: string;
     if (this.p1 < 4 && this.p2 < 4 && !(this.p1 + this.p2 === 6)) {
       const p: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-      s = p[this.p1];
+      s = p[this.p1] as any
       return (this.p1 === this.p2) ? s + '-All' : s + '-' + p[this.p2];
     } else {
       if (this.p1 === this.p2)

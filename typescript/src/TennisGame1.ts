@@ -1,4 +1,4 @@
-import { TennisGame } from './TennisGame';
+import { TennisGame } from './TennisGame.js';
 
 
 export class TennisGame1 implements TennisGame {

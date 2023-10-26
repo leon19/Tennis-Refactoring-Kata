@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json.schemastore.org/mocharc.json",
+  "node-option": ["loader=ts-node/esm", "no-warnings"],
+  "spec": ["tests/**/*.test.ts"]
+}

@@ -7,6 +7,7 @@ export class TennisGame1 implements TennisGame {
   private playerOneName: string;
   private playerTwoName: string;
 
+
   constructor(playerOneName: string, playerTwoName: string) {
     this.playerOneName = playerOneName;
     this.playerTwoName = playerTwoName;
@@ -23,48 +24,64 @@ export class TennisGame1 implements TennisGame {
     let score: string = '';
     let tempScore: number = 0;
     if (this.playerOneScore === this.playerTwoScore) {
-      switch (this.playerOneScore) {
+      return this.findTieScore(score);
+    }
+
+     if (this.playerOneScore >= 4 || this.playerTwoScore >= 4) {
+      return this.findWonScore(score);
+    }
+
+    ({ tempScore, score } = this.findOngoingScore(tempScore, score));
+
+      return score
+  }
+
+  private findOngoingScore(tempScore: number, score: string) {
+    for (let i = 1; i < 3; i++) {
+      if (i === 1) tempScore = this.playerOneScore;
+      else { score += '-'; tempScore = this.playerTwoScore; }
+      switch (tempScore) {
         case 0:
-          score = 'Love-All';
+          score += 'Love';
           break;
         case 1:
-          score = 'Fifteen-All';
+          score += 'Fifteen';
           break;
         case 2:
-          score = 'Thirty-All';
+          score += 'Thirty';
           break;
-        default:
-          score = 'Deuce';
+        case 3:
+          score += 'Forty';
           break;
+      }
+    }
+    return { tempScore, score };
+  }
 
-      }
-    }
-    else if (this.playerOneScore >= 4 || this.playerTwoScore >= 4) {
-      const minusResult: number = this.playerOneScore - this.playerTwoScore;
-      if (minusResult === 1) score = 'Advantage player1';
-      else if (minusResult === -1) score = 'Advantage player2';
-      else if (minusResult >= 2) score = 'Win for player1';
-      else score = 'Win for player2';
-    }
-    else {
-      for (let i = 1; i < 3; i++) {
-        if (i === 1) tempScore = this.playerOneScore;
-        else { score += '-'; tempScore = this.playerTwoScore; }
-        switch (tempScore) {
-          case 0:
-            score += 'Love';
-            break;
-          case 1:
-            score += 'Fifteen';
-            break;
-          case 2:
-            score += 'Thirty';
-            break;
-          case 3:
-            score += 'Forty';
-            break;
-        }
-      }
+  private findWonScore(score: string) {
+    const minusResult: number = this.playerOneScore - this.playerTwoScore;
+    if (minusResult === 1) score = 'Advantage player1';
+    else if (minusResult === -1) score = 'Advantage player2';
+    else if (minusResult >= 2) score = 'Win for player1';
+    else score = 'Win for player2';
+    return score;
+  }
+
+  private findTieScore(score: string) {
+    switch (this.playerOneScore) {
+      case 0:
+        score = 'Love-All';
+        break;
+      case 1:
+        score = 'Fifteen-All';
+        break;
+      case 2:
+        score = 'Thirty-All';
+        break;
+      default:
+        score = 'Deuce';
+        break;
+
     }
     return score;
   }

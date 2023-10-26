@@ -24,7 +24,7 @@ export class TennisGame1 implements TennisGame {
     let score: string = '';
     let tempScore: number = 0;
     if (this.playerOneScore === this.playerTwoScore) {
-      return this.findTieScore(score);
+      return this.findTieScore();
     }
 
      if (this.playerOneScore >= 4 || this.playerTwoScore >= 4) {
@@ -67,7 +67,7 @@ export class TennisGame1 implements TennisGame {
     return score;
   }
 
-  private findTieScore(score: string) {
+  private findTieScore(): string{
     switch (this.playerOneScore) {
       case 0:
         return 'Love-All';

@@ -94,16 +94,21 @@ export class TennisGame1 implements TennisGame {
   private readonly playerOne: Player;
   private readonly playerTwo: Player;
 
+  private readonly players = new Map<string, Player>();
+
   constructor(playerOneName: string, playerTwoName: string) {
     this.playerOne = new Player(playerOneName);
     this.playerTwo = new Player(playerTwoName);
+
+    this.players.set(playerOneName, this.playerOne);
+    this.players.set(playerTwoName, this.playerTwo);
   }
 
   wonPoint(playerName: string): void {
-    if (this.playerOne.hasName(playerName)) {
-      this.playerOne.score.increment();
-    } else {
-      this.playerTwo.score.increment();
+    for (const player of this.players.values()) {
+      if (player.hasName(playerName)) {
+        player.score.increment();
+      }
     }
   }
 

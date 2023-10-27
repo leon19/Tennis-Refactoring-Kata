@@ -75,6 +75,10 @@ const scoreMap: Record<number, string> = {
 class Player {
   constructor(readonly name:string, readonly score = new Score()) {}
 
+  isTiedWith(player: Player): boolean {
+    return this.score.equals(player.score);
+  }
+
   hasAdvantageOver(player: Player): boolean {
     return this.score.getPoints() >= 4  && this.score.getPoints() - player.score.getPoints() === 1;
   }
@@ -113,7 +117,7 @@ export class TennisGame1 implements TennisGame {
   }
 
   getScore(): string {
-    if (this.playerOne.score.equals(this.playerTwo.score)) {
+    if (this.playerOne.isTiedWith(this.playerTwo)) {
       return new TieResult(this.playerOne.score).toResult();
     }
 

@@ -86,11 +86,6 @@ class Player {
   hasWonOver(player: Player): boolean {
     return this.score.getPoints() >= 4  && this.score.getPoints() - player.score.getPoints() >= 2;
   }
-
-
-  hasName(name: string): boolean {
-    return this.name === name;
-  }
 }
 
 
@@ -109,11 +104,7 @@ export class TennisGame1 implements TennisGame {
   }
 
   wonPoint(playerName: string): void {
-    for (const player of this.players.values()) {
-      if (player.hasName(playerName)) {
-        player.score.increment();
-      }
-    }
+    this.players.get(playerName)?.score.increment();
   }
 
   getScore(): string {

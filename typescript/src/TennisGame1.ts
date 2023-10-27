@@ -6,10 +6,10 @@ interface Result {
 }
 
 class OngoingResult implements Result {
-  constructor(private readonly playerOneScore: Score, private readonly playerTwoScore: Score) {}
+  constructor(private readonly playerOne: Player, private readonly playerTwo: Player) {}
 
   toResult(): string {
-    return `${this.playerOneScore.getScoreName()}-${this.playerTwoScore.getScoreName()}`;
+    return `${this.playerOne.score.getScoreName()}-${this.playerTwo.score.getScoreName()}`;
   }
 }
 
@@ -128,7 +128,7 @@ export class TennisGame1 implements TennisGame {
       return new WinResult(this.playerTwo).toResult();
     }
 
-    return new OngoingResult(this.playerOne.score, this.playerTwo.score).toResult();
+    return new OngoingResult(this.playerOne, this.playerTwo).toResult();
   }
 }
 

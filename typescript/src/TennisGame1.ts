@@ -9,7 +9,7 @@ class OngoingResult implements Result {
   constructor(private readonly playerOneScore: Score, private readonly playerTwoScore: Score) {}
 
   toResult(): string {
-    return `${this.playerOneScore.getResultName()}-${this.playerTwoScore.getResultName()}`;
+    return `${this.playerOneScore.getScoreName()}-${this.playerTwoScore.getScoreName()}`;
   }
 }
 
@@ -19,7 +19,7 @@ class TieResult implements Result {
 
   toResult(): string {
     if (this.score.getPoints() < 3) {
-      return this.score.getResultName() + '-All';
+      return this.score.getScoreName() + '-All';
     }
 
     return 'Deuce';
@@ -58,7 +58,7 @@ class Score {
     return this.points;
   }
 
-  getResultName(): string {
+  getScoreName(): string {
     return scoreMap[this.points] as string;
   }
 }
